@@ -1,0 +1,3 @@
+# If you don't indicate it, by default ES opens only localhost
+network.host: 0
+cluster.name: taxonomy

@@ -1,0 +1,28 @@
+## Api container
+api:
+  restart: always
+  build: .
+  command: gunicorn application:app -c gunicorn-config.py --log-file=-
+  volumes:
+    - .:/code
+  ports:
+    - "5000:5000"
+  links:
+    - elastic:elastic
+
+## Nginx container
+nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+        - "80:80"
+    links:
+        - api:api
+
+## Elastic container
+elastic:
+    restart: always
+    build: ./elastic/
+    ports:
+        - "9200:9200"
+        - "9300:9300"
